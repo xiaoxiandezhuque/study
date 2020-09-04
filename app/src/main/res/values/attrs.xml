@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="RoundedImageView">
+        <attr name="radius" format="dimension" />
+        <attr name="roundedStyle" format="enum">
+            <enum name="arc" value="0" />
+            <enum name="arcTop" value="1" />
+            <enum name="circular" value="2" />
+            <enum name="oval" value="3" />
+        </attr>
+    </declare-styleable>
+
+</resources>
