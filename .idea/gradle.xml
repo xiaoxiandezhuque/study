@@ -12,7 +12,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/aop" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/butterknife-annotation" />
+            <option value="$PROJECT_DIR$/butterknife-cmplier" />
             <option value="$PROJECT_DIR$/chajian" />
+            <option value="$PROJECT_DIR$/mylib" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

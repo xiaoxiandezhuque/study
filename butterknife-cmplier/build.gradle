@@ -1,0 +1,20 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // 远程依赖 auto-service 库, 用于注册自定义注解处理器到编译器中
+    implementation 'com.google.auto.service:auto-service:1.0-rc4'
+
+    // 远程以来 javapoet 库，用于动态生成代码
+    implementation 'com.squareup:javapoet:1.11.1'
+
+    // 本地依赖 声明了自定义注解的 module
+    implementation project(':butterknife-annotation')
+
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"

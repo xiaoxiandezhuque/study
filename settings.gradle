@@ -1,3 +1,6 @@
+include ':butterknife-cmplier'
+include ':mylib'
+include ':butterknife-annotation'
 include ':aop'
 include ':app'
 include ':chajian'
