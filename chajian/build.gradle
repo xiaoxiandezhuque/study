@@ -1,0 +1,33 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+dependencies {
+    //gradle sdk
+    implementation gradleApi()
+    //groovy sdk
+    implementation localGroovy()
+
+    implementation "com.android.tools.build:gradle:4.0.1"
+}
+
+repositories {
+    mavenCentral()
+}
+
+//group和version在后面使用自定义插件的时候会用到
+//定义build.gradle 的引用    classpath 'com.xh.chajian:chajian:1.0.0'
+group = 'com.xh.chajian'
+version = '1.0.0'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //提交到远程服务器：
+            // repository(url: "http://www.xxx.com/repos") {
+            //    authentication(userName: "admin", password: "admin")
+            // }
+            //本地的Maven地址设置为D:/repos
+            repository(url: uri('./my-chajian'))
+        }
+    }
+}

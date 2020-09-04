@@ -1,0 +1,4 @@
+include ':aop'
+include ':app'
+include ':chajian'
+rootProject.name = "study"
