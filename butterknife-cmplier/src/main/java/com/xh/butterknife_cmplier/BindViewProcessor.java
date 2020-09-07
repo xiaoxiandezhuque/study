@@ -44,9 +44,9 @@ public class BindViewProcessor extends AbstractProcessor {
         // for each javax.lang.model.element.Element annotated with the CustomAnnotation
         for (Element element : roundEnv.getElementsAnnotatedWith(BindView.class)) {
             String objectType = element.getSimpleName().toString();//方法名字
-//            element.getModifiers() //public 修饰符
+//            element.getModifiers() //public
             BindView bindView = element.getAnnotation(BindView.class);
-            bindView.value();//获取注解的值
+            bindView.value();//
 
             // this is appending to the return statement
             builder.append(objectType).append(" says hello!\\n");
