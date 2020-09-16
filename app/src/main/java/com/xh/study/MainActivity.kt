@@ -1,10 +1,12 @@
 package com.xh.study
 
+import android.opengl.GLSurfaceView
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.xh.butterknife_annotation.BindView
+import com.blankj.utilcode.util.LogUtils
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,7 +16,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         sample_text.text = stringFromJNI()
-        Text().test(this)
+        thread {
+            while (true) {
+                LogUtils.e("开始睡觉",Thread.currentThread().name)
+                Thread.sleep(50000)
+                LogUtils.e("结束睡觉")
+            }
+        }
+
 //        showAnnotationMessage()
     }
 

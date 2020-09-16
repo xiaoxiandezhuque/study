@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -50,6 +51,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     api 'com.blankj:utilcodex:1.28.3'
 
-    implementation project(':butterknife-annotation')
-    annotationProcessor project(':butterknife-cmplier')
+//    implementation project(':butterknife-annotation')
+//    annotationProcessor project(':butterknife-cmplier')
+
 }
