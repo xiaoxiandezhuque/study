@@ -88,6 +88,7 @@ class MainActivity : AppCompatActivity() {
             }catch (e:Exception){
                 e.printStackTrace()
             }
+//            imageCapture.takePicture()
 
         }, ContextCompat.getMainExecutor(this))
     }

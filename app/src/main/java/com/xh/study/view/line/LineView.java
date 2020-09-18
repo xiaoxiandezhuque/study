@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class LineView extends View {
 
@@ -27,11 +26,18 @@ public class LineView extends View {
 
     private int mWindowWidth;
 
+    //当前段落的宽度
+    private int mParagraphWidth;
+
     private List<Integer> mDrawList = new ArrayList<>();
-    private int mTime;
+    private List<Integer> mTimeList = new ArrayList<>();
+    private int mTotleTime;
     private double mHowMuchData;
 
     private int mPlayTime;
+    private int mStartTime;
+    private int mEndTime;
+
 
     private int downX, moveX;
     private int upX;
@@ -40,11 +46,11 @@ public class LineView extends View {
     private boolean isDownSelect;
 
 
-    private boolean isPlaying;
+//    private boolean isPlaying;
 
     private HorizontalScrollView mParent;
 
-    private int drawingTime;
+//    private int drawingTime;
 
 
     public LineView(Context context, @Nullable AttributeSet attrs) {
@@ -62,8 +68,8 @@ public class LineView extends View {
         mWindowWidth = getResources().getDisplayMetrics().widthPixels;
         mHeight = getMeasuredHeight();
 
-        int max = spacing * mDrawList.size();
-        mWidth = Math.max(mWindowWidth, max);
+        mParagraphWidth = spacing * mDrawList.size() * (mEndTime - mStartTime) / mTotleTime;
+        mWidth = Math.max(mWindowWidth, mParagraphWidth);
         setMeasuredDimension(mWidth, mHeight);
     }
 
@@ -71,41 +77,50 @@ public class LineView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        long star = System.currentTimeMillis();
+//        long star = System.currentTimeMillis();
         if (isDownSelect) {
             mPaint.setColor(0xff0000ff);
-            canvas.drawRect(downX, 0, moveX, mHeight, mPaint);
+            if (downX > moveX) {
+                canvas.drawRect(moveX, 0, downX, mHeight, mPaint);
+            } else {
+                canvas.drawRect(downX, 0, moveX, mHeight, mPaint);
+            }
 
         }
 
 
         mPaint.setColor(0xffe6e6e6);
         canvas.drawLine(0, mHeight / 2, mWidth, mHeight / 2, mPaint);
-        int progress = (int) ((mPlayTime + drawingTime) * mHowMuchData);
+//        int progress = (int) ((mPlayTime + drawingTime) * mHowMuchData);
 
-        int left = mParent.getScrollX() + (mWindowWidth >> 1);
-        if (isPlaying) {
-            if (progress > left) {
-                mParent.scrollTo(progress - (mWindowWidth >> 1), 0);
-            }
-            if (mParent.getScrollX() > progress) {
-                mParent.scrollTo(progress - (mWindowWidth >> 1), 0);
-            }
-        }
+//        自动滑动
+//        int left = mParent.getScrollX() + (mWindowWidth >> 1);
+//        if (isPlaying) {
+//            if (progress > left) {
+//                mParent.scrollTo(progress - (mWindowWidth >> 1), 0);
+//            }
+//            if (mParent.getScrollX() > progress) {
+//                mParent.scrollTo(progress - (mWindowWidth >> 1), 0);
+//            }
+//        }
 
-        for (int i = 0; i < mDrawList.size(); i++) {
-            int start = spacing * i;
-            if (progress < i) {
-                mPaint.setColor(0xffe6e6e6);//
-            } else {
-                mPaint.setColor(0xff82F5B9);//以播放
-            }
 
+        int startList = mDrawList.size() * mStartTime / mTotleTime;
+        int endList = mDrawList.size() * mEndTime / mTotleTime;
+
+        int maginLeft = mWidth > mParagraphWidth ? (mWidth - mParagraphWidth) / 2 : 0;
+        for (int i = startList; i < endList; i++) {
+            int start = maginLeft + spacing * (i - startList);
+//            if (progress < i) {
+//                mPaint.setColor(0xffe6e6e6);//
+//            } else {
+            mPaint.setColor(0xff82F5B9);//以播放
+//            }
             if (mDrawList.get(i) > 1) {
                 canvas.drawLine(start, (mHeight - mDrawList.get(i)) >> 1, start, mHeight - (mHeight - mDrawList.get(i)) / 2, mPaint);
             }
         }
-        drawingTime = (int) (System.currentTimeMillis() - star);
+//        drawingTime = (int) (System.currentTimeMillis() - star);
     }
 
     @Override
@@ -116,12 +131,12 @@ public class LineView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (isPlaying) {
-            return true;
-        }
-        if (!isSelect) {
-            return false;
-        }
+//        if (isPlaying) {
+//            return true;
+//        }
+//        if (!isSelect) {
+//            return false;
+//        }
         int down = (int) event.getX();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -144,22 +159,36 @@ public class LineView extends View {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 upX = down;
-
                 if (Math.abs(upX - downX) > 8) {
                     int starTime = 0;
                     int endTime = 0;
+                    int maginLeft = mWidth > mParagraphWidth ? (mWidth - mParagraphWidth) / 2 : 0;
                     if (downX < upX) {
-                        starTime = (int) (downX / spacing / mHowMuchData);
-                        endTime = (int) (upX / spacing / mHowMuchData);
+                        int left = Math.max(0, downX - maginLeft);
+
+                        starTime = (int) (left / spacing / mHowMuchData);
+                        if (mParagraphWidth <= upX - maginLeft) {
+                            endTime = mEndTime;
+                        } else {
+                            endTime = (int) ((upX - maginLeft) / spacing / mHowMuchData);
+                        }
+
                     } else {
-                        starTime = (int) (upX / spacing / mHowMuchData);
-                        endTime = (int) (downX / spacing / mHowMuchData);
+                        int left = Math.max(0, upX - maginLeft);
+                        starTime = (int) (left / spacing / mHowMuchData);
+                        if (mParagraphWidth <= downX - maginLeft) {
+                            endTime = mEndTime;
+                        } else {
+                            endTime = (int) ((downX - maginLeft) / spacing / mHowMuchData);
+                        }
+
                     }
                     if (starTime < endTime && mOnSelectListener != null) {
-                        mOnSelectListener.select(starTime, endTime);
+                        mOnSelectListener.select(starTime + mStartTime, endTime + mStartTime);
                     }
-
                 }
+                isDownSelect = false;
+                invalidate();
 
                 break;
         }
@@ -169,34 +198,51 @@ public class LineView extends View {
     }
 
     //设置数据和总时间
-    public void setDecibel(List<Integer> decibel, int time) {
+    public void setDecibel(List<Integer> decibel, List<Integer> timeList) {
+        mTimeList.clear();
+        mTimeList.addAll(timeList);
+        mTotleTime = timeList.get(mTimeList.size() - 1);
+        mHowMuchData = decibel.size() / (double) mTotleTime;
         post(() -> {
-            mTime = time;
-            mHowMuchData = decibel.size() / (double) time;
+            //先计算高度
             for (int i = 0; i < decibel.size(); i++) {
-                int value = (int) getValue(decibel.get(i));
+                int value = getValue(decibel.get(i));
                 mDrawList.add(value);
             }
+
+        });
+
+    }
+
+    //传段数  从0开始
+    public void setPlayCount(int count) {
+        if (count >= mTimeList.size() || count < 0) {
+            throw new IndexOutOfBoundsException("段数z值传错了");
+        }
+        mStartTime = count == 0 ? 0 : mTimeList.get(count - 1);
+        mEndTime = mTimeList.get(count);
+        post(() -> {
             requestLayout();
             invalidate();
         });
 
     }
 
-    //设置当前的播发时间，要一直调用
-    public void setPlayTime(int time) {
 
-        if (time > mTime) {
-            return;
-        }
-        mPlayTime = time;
-        invalidate();
-    }
+//    //设置当前的播发时间，要一直调用
+//    public void setPlayTime(int time) {
+//
+//        if (time > mTotleTime) {
+//            return;
+//        }
+//        mPlayTime = time;
+//        invalidate();
+//    }
 
     //设置是否在播发，确定控件是否可以滑动
-    public void setPlaying(boolean playing) {
-        isPlaying = playing;
-    }
+//    public void setPlaying(boolean playing) {
+//        isPlaying = playing;
+//    }
 
     //清楚选中的背景
     public void clearBg() {
@@ -215,14 +261,9 @@ public class LineView extends View {
     }
 
 
-    private double getValue(double decibel) {
-        double y;
-        if (decibel <= -15) {
-            y = new Random().nextInt(2);
-        } else {
-            decibel = (decibel) / 10;
-            y = 3.5 * decibel * decibel - 32;
-        }
+    private int getValue(int decibel) {
+        int y = mHeight * decibel / 100;
+
         if (y < 1) {
             y = 1;
         }

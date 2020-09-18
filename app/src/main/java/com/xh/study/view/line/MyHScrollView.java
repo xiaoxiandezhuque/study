@@ -27,22 +27,21 @@ public class MyHScrollView extends HorizontalScrollView {
 //            case MotionEvent.ACTION_DOWN:
 //                downX = (int) event.getX();
 //                downY = (int) event.getY();
-//                LogUtils.e("down---" + downX);
+//
 //                break;
 //            case MotionEvent.ACTION_MOVE:
-//
-////                if (downX)
+//                if (Math.abs(downX - (int) event.getX()) > 8) {
+//                    ((FhrView) getChildAt(0)).setNotAutoScroll();
+//                }
 //
 //                break;
 //            case MotionEvent.ACTION_UP:
 //            case MotionEvent.ACTION_CANCEL:
-//                moveX = Math.abs((int) event.getX() - downX);
-////                downX = (int) event.getX();
-////                downY = (int) event.getY();
-//                LogUtils.e("move---" + moveX);
+//
+//
 //                break;
 //        }
-//        LogUtils.e(getScrollX(),getScaleY());
+
 
         return super.onTouchEvent(event);
     }
