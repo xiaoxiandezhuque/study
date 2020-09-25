@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 
@@ -46,11 +45,7 @@ public class LineView extends View {
     private boolean isDownSelect;
 
 
-//    private boolean isPlaying;
-
     private HorizontalScrollView mParent;
-
-//    private int drawingTime;
 
 
     public LineView(Context context, @Nullable AttributeSet attrs) {
@@ -65,6 +60,9 @@ public class LineView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if (mTotleTime == 0) {
+            return;
+        }
         mWindowWidth = getResources().getDisplayMetrics().widthPixels;
         mHeight = getMeasuredHeight();
 
@@ -78,6 +76,9 @@ public class LineView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 //        long star = System.currentTimeMillis();
+        if (mTotleTime == 0) {
+            return;
+        }
         if (isDownSelect) {
             mPaint.setColor(0xff0000ff);
             if (downX > moveX) {
@@ -85,42 +86,20 @@ public class LineView extends View {
             } else {
                 canvas.drawRect(downX, 0, moveX, mHeight, mPaint);
             }
-
         }
-
-
         mPaint.setColor(0xffe6e6e6);
         canvas.drawLine(0, mHeight / 2, mWidth, mHeight / 2, mPaint);
-//        int progress = (int) ((mPlayTime + drawingTime) * mHowMuchData);
-
-//        自动滑动
-//        int left = mParent.getScrollX() + (mWindowWidth >> 1);
-//        if (isPlaying) {
-//            if (progress > left) {
-//                mParent.scrollTo(progress - (mWindowWidth >> 1), 0);
-//            }
-//            if (mParent.getScrollX() > progress) {
-//                mParent.scrollTo(progress - (mWindowWidth >> 1), 0);
-//            }
-//        }
-
-
-        int startList = mDrawList.size() * mStartTime / mTotleTime;
-        int endList = mDrawList.size() * mEndTime / mTotleTime;
+        int startList = Math.min((int) (mDrawList.size() / (double) mTotleTime * mStartTime), mDrawList.size() - 1);
+        int endList = Math.min((int) (mDrawList.size() / (double) mTotleTime * mEndTime), mDrawList.size() - 1);
 
         int maginLeft = mWidth > mParagraphWidth ? (mWidth - mParagraphWidth) / 2 : 0;
-        for (int i = startList; i < endList; i++) {
+        for (int i = startList; i <= endList; i++) {
             int start = maginLeft + spacing * (i - startList);
-//            if (progress < i) {
-//                mPaint.setColor(0xffe6e6e6);//
-//            } else {
             mPaint.setColor(0xff82F5B9);//以播放
-//            }
             if (mDrawList.get(i) > 1) {
                 canvas.drawLine(start, (mHeight - mDrawList.get(i)) >> 1, start, mHeight - (mHeight - mDrawList.get(i)) / 2, mPaint);
             }
         }
-//        drawingTime = (int) (System.currentTimeMillis() - star);
     }
 
     @Override
@@ -129,78 +108,79 @@ public class LineView extends View {
         mParent = (HorizontalScrollView) getParent();
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-//        if (isPlaying) {
-//            return true;
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        int down = (int) event.getX();
+//        switch (event.getAction()) {
+//            case MotionEvent.ACTION_DOWN:
+//                downX = down;
+//                isDownSelect = true;
+//
+//                break;
+//            case MotionEvent.ACTION_MOVE:
+//                int move = down - mParent.getScrollX();
+//                if (move > mWindowWidth - 50) {
+//                    mParent.scrollBy(8, 0);
+//                } else if (move < 50) {
+//                    mParent.scrollBy(-8, 0);
+//                }
+//
+//                moveX = down;
+//
+//                invalidate();
+//                break;
+//            case MotionEvent.ACTION_UP:
+//            case MotionEvent.ACTION_CANCEL:
+//                upX = down;
+//                if (Math.abs(upX - downX) > 8) {
+//                    int starTime = 0;
+//                    int endTime = 0;
+//                    int maginLeft = mWidth > mParagraphWidth ? (mWidth - mParagraphWidth) / 2 : 0;
+//                    if (downX < upX) {
+//                        int left = Math.max(0, downX - maginLeft);
+//
+//                        starTime = (int) (left / spacing / mHowMuchData);
+//                        if (mParagraphWidth <= upX - maginLeft) {
+//                            endTime = mEndTime;
+//                        } else {
+//                            endTime = (int) ((upX - maginLeft) / spacing / mHowMuchData);
+//                        }
+//
+//                    } else {
+//                        int left = Math.max(0, upX - maginLeft);
+//                        starTime = (int) (left / spacing / mHowMuchData);
+//                        if (mParagraphWidth <= downX - maginLeft) {
+//                            endTime = mEndTime;
+//                        } else {
+//                            endTime = (int) ((downX - maginLeft) / spacing / mHowMuchData);
+//                        }
+//
+//                    }
+//                    if (starTime < endTime && mOnSelectListener != null) {
+//                        mOnSelectListener.select(starTime + mStartTime, endTime + mStartTime);
+//                    }
+//                }
+//                isDownSelect = false;
+//                invalidate();
+//
+//                break;
 //        }
-//        if (!isSelect) {
-//            return false;
-//        }
-        int down = (int) event.getX();
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                downX = down;
-                isDownSelect = true;
-
-                break;
-            case MotionEvent.ACTION_MOVE:
-                int move = down - mParent.getScrollX();
-                if (move > mWindowWidth - 50) {
-                    mParent.scrollBy(8, 0);
-                } else if (move < 50) {
-                    mParent.scrollBy(-8, 0);
-                }
-
-                moveX = down;
-
-                invalidate();
-                break;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
-                upX = down;
-                if (Math.abs(upX - downX) > 8) {
-                    int starTime = 0;
-                    int endTime = 0;
-                    int maginLeft = mWidth > mParagraphWidth ? (mWidth - mParagraphWidth) / 2 : 0;
-                    if (downX < upX) {
-                        int left = Math.max(0, downX - maginLeft);
-
-                        starTime = (int) (left / spacing / mHowMuchData);
-                        if (mParagraphWidth <= upX - maginLeft) {
-                            endTime = mEndTime;
-                        } else {
-                            endTime = (int) ((upX - maginLeft) / spacing / mHowMuchData);
-                        }
-
-                    } else {
-                        int left = Math.max(0, upX - maginLeft);
-                        starTime = (int) (left / spacing / mHowMuchData);
-                        if (mParagraphWidth <= downX - maginLeft) {
-                            endTime = mEndTime;
-                        } else {
-                            endTime = (int) ((downX - maginLeft) / spacing / mHowMuchData);
-                        }
-
-                    }
-                    if (starTime < endTime && mOnSelectListener != null) {
-                        mOnSelectListener.select(starTime + mStartTime, endTime + mStartTime);
-                    }
-                }
-                isDownSelect = false;
-                invalidate();
-
-                break;
-        }
-
-
-        return true;
-    }
+//
+//
+//        return true;
+//    }
 
     //设置数据和总时间
     public void setDecibel(List<Integer> decibel, List<Integer> timeList) {
         mTimeList.clear();
         mTimeList.addAll(timeList);
+//        for (int i = timeList.size() - 1; i > 0; i--) {
+//            if (timeList.get(i) < timeList.get(i - 1)) {
+//                throw new IllegalStateException("传入的数据有问题");
+//            }
+//        }
+
+
         mTotleTime = timeList.get(mTimeList.size() - 1);
         mHowMuchData = decibel.size() / (double) mTotleTime;
         post(() -> {
@@ -209,7 +189,6 @@ public class LineView extends View {
                 int value = getValue(decibel.get(i));
                 mDrawList.add(value);
             }
-
         });
 
     }
@@ -217,7 +196,7 @@ public class LineView extends View {
     //传段数  从0开始
     public void setPlayCount(int count) {
         if (count >= mTimeList.size() || count < 0) {
-            throw new IndexOutOfBoundsException("段数z值传错了");
+            return;
         }
         mStartTime = count == 0 ? 0 : mTimeList.get(count - 1);
         mEndTime = mTimeList.get(count);

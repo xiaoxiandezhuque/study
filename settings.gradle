@@ -1,3 +1,4 @@
+include ':multichannelpackaging'
 include ':opengl'
 include ':hilt'
 include ':compose'
