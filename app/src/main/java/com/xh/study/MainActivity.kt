@@ -5,10 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.xh.study.activity.FishActivity
-import com.xh.study.activity.LineViewActivity
-import com.xh.study.activity.ScrollTbActivity
-import com.xh.study.activity.TextActivity
+import com.xh.study.activity.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -32,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         list.add("淘宝首页滑动控件")
         list.add("文字绘制控件")
         list.add("滑动的鱼控件")
+        list.add("Coordinator自定义Behavior")
         mAdapter.resetData(list)
 
         mAdapter.setOnItemClickListener { view, postion, data ->
@@ -48,9 +46,12 @@ class MainActivity : AppCompatActivity() {
                 3 -> {
                     startActivity(Intent(this, FishActivity::class.java))
                 }
+                3 -> {
+                    startActivity(Intent(this, CoordinatorActivity::class.java))
+                }
             }
         }
-        startActivity(Intent(this, LineViewActivity::class.java))
+        startActivity(Intent(this, CoordinatorActivity::class.java))
     }
 
 

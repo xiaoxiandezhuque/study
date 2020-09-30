@@ -42,8 +42,9 @@ class TbNestedScrollView(context: Context, attrs: AttributeSet?) :
 //        如果活动向下并且头部的view显示出来了  那么就先滑动头部
         val showTop = dy > 0 && scrollY < (topView?.height ?: 0)
         if (showTop) {
-            scrollBy(0, dy)
-            consumed[1] = dy
+            val scrollDy = Math.min(dy, (topView?.height ?: 0) - scaleY as Int)
+            scrollBy(0, scrollDy)
+            consumed[1] = scrollDy
         }
     }
 

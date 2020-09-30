@@ -66,6 +66,7 @@ fun main2() {
 
 fun main() {
 
-    println(215036 * 215036)
-
+    println(3 / 2)
+    println(3f / 2)
+    println(3 / 2f)
 }

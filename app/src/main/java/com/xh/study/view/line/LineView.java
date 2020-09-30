@@ -173,6 +173,7 @@ public class LineView extends View {
     //设置数据和总时间
     public void setDecibel(List<Integer> decibel, List<Integer> timeList) {
         mTimeList.clear();
+        mDrawList.clear();
         mTimeList.addAll(timeList);
 //        for (int i = timeList.size() - 1; i > 0; i--) {
 //            if (timeList.get(i) < timeList.get(i - 1)) {
