@@ -6,7 +6,7 @@ import java.nio.ByteBuffer
 import java.nio.channels.SocketChannel
 
 
-fun main() {
+fun main1() {
 //    val buff = BufferedInputStream(FileInputStream(""))
 //    DataStreamTest.testDataOutPutStream()
 //    DataStreamTest.testDataInputStreamI()
@@ -53,4 +53,11 @@ fun main() {
 //    println(byteBuffer.get(0))
 
 
+}
+
+fun main() {
+    val a = "aaa"
+    val test = Text()
+    test.name = "aaa"
+    print(a==test.name)
 }
