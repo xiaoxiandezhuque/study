@@ -1,3 +1,5 @@
+include ':databinding'
+include ':multichannelpackaging'
 include ':opengl'
 include ':hilt'
 include ':compose'
@@ -8,4 +10,5 @@ include ':butterknife-annotation'
 include ':aop'
 include ':app'
 include ':chajian'
+include ':materialdesign'
 rootProject.name = "study"

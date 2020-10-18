@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.xh.multichannelpackaging"
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('../my.jks')
+            storePassword '123456'
+            keyAlias = 'key0'
+            keyPassword '123456'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+//    由两个名字组成， 这里还可以定义很多个，一个也可以
+    flavorDimensions 'fastName', 'lastName'
+    productFlavors {
+        module1 {
+            dimension = 'fastName'
+            applicationId "com.xh.module111"
+            ndk {
+                abiFilters 'armeabi-v7a', 'arm64-v8a'//, 'x86_64', 'x86'
+            }
+            buildConfigField 'String', 'URL', '"release".equals(BUILD_TYPE) ? "1" : "2"'
+
+        }
+        module2 {
+            dimension = 'fastName'
+            applicationId "com.xh.module222"
+            ndk {
+                abiFilters 'armeabi-v7a', 'arm64-v8a'//, 'x86_64', 'x86'
+            }
+            buildConfigField 'String', 'URL', '"release".equals(BUILD_TYPE) ? "1" : "2"'
+        }
+        app1 {
+            dimension = 'lastName'
+            signingConfig signingConfigs.release
+//            定义manifest里面的一个属性,没试出作用来
+//            manifestPlaceholders = [CHANNEL: 'CHANNEL22222']
+//            manifestPlaceholders = [SHARED_USER_ID: 'android.uid.system']
+        }
+
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+}

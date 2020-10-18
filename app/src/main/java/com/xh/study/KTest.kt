@@ -6,7 +6,9 @@ import java.nio.ByteBuffer
 import java.nio.channels.SocketChannel
 
 
-fun main1() {
+
+fun main11() {
+
 //    val buff = BufferedInputStream(FileInputStream(""))
 //    DataStreamTest.testDataOutPutStream()
 //    DataStreamTest.testDataInputStreamI()
@@ -27,12 +29,13 @@ fun main1() {
     byteBuffer.put((27).toByte())
     byteBuffer.put((28).toByte())
     byteBuffer.flip()
-    println("当前数据的位置"+byteBuffer.position())
-    println("当前数据的大小"+byteBuffer.limit())
+    println("当前数据的位置" + byteBuffer.position())
+    println("当前数据的大小" + byteBuffer.limit())
     println(byteBuffer.get())//取出当前的第一个数据
 
-    println("当前数据的位置"+byteBuffer.position())
-    println("当前数据的大小"+byteBuffer.limit())
+    println("当前数据的位置" + byteBuffer.position())
+    println("当前数据的大小" + byteBuffer.limit())
+
 
 //
 //    println(byteBuffer.limit())
@@ -52,12 +55,24 @@ fun main1() {
 //    byteBuffer.put((27).toByte())
 //    println(byteBuffer.get(0))
 
-
 }
+
+fun main2() {
+    println(Math.toRadians(45.0))
+    println(Math.sin(360.0))
+    println(Math.sin(390.0))
+    println(Math.sin(Math.toRadians(360.0)))
+    println(Math.sin(Math.toRadians(390.0)))
+}
+
+
 
 fun main() {
     val a = "aaa"
     val test = Text()
-    test.name = "aaa"
-    print(a==test.name)
+
+
+    println(3 / 2)
+    println(3f / 2)
+    println(3 / 2f)
 }

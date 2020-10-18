@@ -171,11 +171,15 @@ public class FhrView extends View {
 
 
         if (!isScroll) {
+            //滑动的距离+屏幕的宽度的一般，就是当前的中点
             int left = mParent.getScrollX() + (mWindowWidth >> 1);
+//            计算你传入数据的进度应该滑动到哪里
             int progress = maginX + Math.max(fhrLength, tocoLength) * spacingX / 120;
+//            如果应该在往右边滑动，就滑动到多少距离
             if (progress > left) {
                 mParent.scrollTo(progress - (mWindowWidth >> 1), 0);
             }
+//            如果滑动的距离大于进度，就是没有显示在屏幕上，那就滑动到进度的中心
             if (mParent.getScrollX() > progress) {
                 mParent.scrollTo(progress - (mWindowWidth >> 1), 0);
             }

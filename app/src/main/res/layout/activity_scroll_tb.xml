@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smart.refresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ScrollTbActivity">
+
+    <com.xh.study.view.TbNestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:gravity="center"
+                android:text="我是头部" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#CC0808" />
+
+
+<!--     android:descendantFocusability="blocksDescendants
+        禁止RecyclerView获取焦点，当获取了焦点就会引起滑动。-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:descendantFocusability="blocksDescendants">
+
+                <com.flyco.tablayout.SlidingTabLayout
+                    android:id="@+id/slide_tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:tl_divider_color="@color/colorAccent"
+                    app:tl_indicator_color="@color/colorAccent"
+                    app:tl_indicator_corner_radius="50dp"
+                    app:tl_indicator_height="4dp"
+                    app:tl_indicator_width="20dp"
+                    app:tl_tab_space_equal="true"
+                    app:tl_textBold="SELECT"
+                    app:tl_textSelectColor="#2F2F2F"
+                    app:tl_textSelectSize="16dp"
+                    app:tl_textUnselectColor="#909090"
+                    app:tl_textsize="16dp"
+                    app:tl_underline_color="@color/colorAccent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#CC0808" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/stl_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </com.xh.study.view.TbNestedScrollView>
+
+
+</com.scwang.smart.refresh.layout.SmartRefreshLayout>
