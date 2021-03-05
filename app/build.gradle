@@ -60,6 +60,7 @@ dependencies {
     api 'com.blankj:utilcodex:1.28.3'
 
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
 //    implementation project(':butterknife-annotation')
 //    annotationProcessor project(':butterknife-cmplier')
 

@@ -8,7 +8,9 @@ import java.util.concurrent.FutureTask
 import java.util.concurrent.locks.LockSupport
 
 
-fun main1() {
+fun main11() {
+
+
 //    val buff = BufferedInputStream(FileInputStream(""))
 //    DataStreamTest.testDataOutPutStream()
 //    DataStreamTest.testDataInputStreamI()
@@ -67,6 +69,9 @@ fun main2() {
 
 
 fun main() {
+    val a = "aaa"
+    val test = Text()
+
 
 //    val map = HashMap<String, String>()
 //    map.put("a", "b")
@@ -114,6 +119,5 @@ fun main4() {
     )
     println(jiami)
     println(AESCryptoSecurity.decrypt(jiami, key))
-
 
 }
