@@ -27,52 +27,49 @@ class LineViewActivity : AppCompatActivity() {
 
         var count = 0
         line_view.setDecibel(list, mutableListOf(3000, 5000, 10000));
-        line_view.setPlayCount(count)
+//        line_view.setPlayCount(count)
         btn.setOnClickListener {
+            line_view.setPlaying(!line_view.getPlaying())
+            if (line_view.playing) {
+                time = 0
+                setData()
+            } else {
+                handler.removeCallbacksAndMessages(null)
+            }
+        }
+        btn1.setOnClickListener {
+            line_view.setSelect(true)
+        }
+
+        btn2.setOnClickListener {
             line_view.setPlayCount(++count)
         }
         line_view.setOnSelectListener { startTime, endTime ->
             LogUtils.e(startTime, endTime)
         }
+
+        line_view.post {
+            line_view.setPlayCount(0)
+        }
+        line_view.setFillTheScreen(true)
+
 //        showAnnotationMessage()
 
 //        setData()
     }
 
-//    private val handler = Handler()
-//    private fun setData() {
-//        val fhrList = mutableListOf<Int>()
-//        val tocoList = mutableListOf<Int>()
-//        for (i in 0 until 120) {
-//            fhrList.add(60)
-//            tocoList.add(10)
-//        }
-//
-//        fhr_view.setData(fhrList, tocoList)
-//        handler.postDelayed({
-//            setData()
-//        }, 1000)
-//    }
-
-
-//    private fun showAnnotationMessage() {
-//        val generatedClass = Class.forName("").
-//
-//        val message: String = generatedClass.getMessage()
-//
-//        AlertDialog.Builder(this)
-//            .setPositiveButton("Ok", null)
-//            .setTitle("Annotation Processor Messages")
-//            .setMessage(message)
-//            .show()
-//    }
-
-
-    external fun stringFromJNI(): String
-
-    companion object {
-        init {
-            System.loadLibrary("native-lib")
+    private val handler = Handler()
+    private var time = 0
+    private fun setData() {
+        if (time > 10000) {
+            return
         }
+        time = time + 20
+        line_view.setPlayTime(time)
+        handler.postDelayed({
+            setData()
+        }, 20)
     }
+
+
 }

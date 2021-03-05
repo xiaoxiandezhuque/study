@@ -12,6 +12,7 @@ public class FollowBehavior extends CoordinatorLayout.Behavior<View> {
 
     public FollowBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
+
     }
 
 

@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 
 android {
@@ -64,4 +65,23 @@ dependencies {
 
     api  'com.scwang.smart:refresh-layout-kernel:2.0.1'      //核心必须依赖
     api  'com.scwang.smart:refresh-header-classics:2.0.1'    //经典刷新头
+
+
+    implementation 'com.google.auto.service:auto-service:1.0-rc7'
+    kapt 'com.google.auto.service:auto-service:1.0-rc7'
+
+    //换肤框架
+    implementation 'com.zhy:changeskin:4.0.3'
 }
+
+
+//打包成jar
+//task makeJar(type: Copy) {
+//    delete 'build/libs/mysdk.jar'
+//    from("build/intermediates/aar_main_jar/release")
+//    into('build/libs/')
+//    include('classes.jar')
+//    rename('classes.jar', 'mysdk.jar')
+//}
+//makeJar.dependsOn(build)
+//之后命令行运行    gradlew makeJar

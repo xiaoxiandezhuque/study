@@ -1,10 +1,8 @@
 package com.xh.test
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import com.blankj.utilcode.util.ImageUtils
+import com.xh.study.algorithm.*
 import com.xh.study.algorithm.bean.BinaryTreeNode
-import java.io.FileInputStream
+import java.util.*
 
 
 fun main() {
@@ -45,22 +43,22 @@ fun main() {
 //        cur = cur.next
 //    }
     //生成树
-    val root = BinaryTreeNode()
-    root.value = 0
-
-    var cur = root
-    for (i in 1 until 10) {
-        if (i % 2 == 1) {
-            val left = BinaryTreeNode()
-            left.value = i
-            val right = BinaryTreeNode()
-            right.value = i + 1
-            cur.left = left
-            cur.right = right
-
-            cur = left
-        }
-    }
+//    val root = BinaryTreeNode()
+//    root.value = 0
+//
+//    var cur = root
+//    for (i in 1 until 10) {
+//        if (i % 2 == 1) {
+//            val left = BinaryTreeNode()
+//            left.value = i
+//            val right = BinaryTreeNode()
+//            right.value = i + 1
+//            cur.left = left
+//            cur.right = right
+//
+//            cur = left
+//        }
+//    }
 
 //    JavaTest.test23(root,17)
 //    printTree(root)
@@ -109,6 +107,30 @@ fun main() {
 //        bitmap, "D:\\work\\Test\\app\\src\\main\\java\\com\\xh\\test\\33.jpeg",
 //        Bitmap.CompressFormat.JPEG
 //    )
+
+//    StringTest.bruteForce("BBCABCDABABCDABCDABDE", "ABCDABD")
+//    StringTest.kmp("BBCABCDABABCDABCDABDE", "ABCDABD")
+//    StringTest.a("ABCDABD")
+//    var ary = intArrayOf(8, 911, 1233, 74441, 2554, 316, 533, 4, 6, 0, 3, 5, 6, 2)
+//    var ary = intArrayOf(8, 9, 1, 7, 2)
+//    var list = mutableListOf<Int>(8, 911, 1233, 74441, 2554, 316, 533, 4, 6, 0, 3, 5, 6, 2,0,0)
+//    var ary = IntArray(1000000)
+//    val random  = Random()
+//    for (i in 0 until  1000000){
+//        ary[i] = random.nextInt(10000)
+//    }
+//    SortTest.HeapSort(ary)
+//    ary = SortTest().sort5(ary)
+//    SortTest().sort6(ary, 0, ary.size-1)
+//    SortTest().sort7(ary)
+//    list = SortTest().sort9(list as ArrayList<Int>?, 4)
+//    for (i in ary) {
+//        print(i.toString() + ",")
+//    }
+
+//    Graph().breadthFirst(0)
+
+    GraphGijkstra().find(0,11)
 }
 
 private fun printTree(tree: BinaryTreeNode?) {

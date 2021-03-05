@@ -1,12 +1,14 @@
 package com.xh.study
 
-import java.io.BufferedInputStream
-import java.io.FileInputStream
+import com.blankj.utilcode.util.EncryptUtils
 import java.nio.ByteBuffer
-import java.nio.channels.SocketChannel
+import java.util.concurrent.Callable
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.FutureTask
+import java.util.concurrent.locks.LockSupport
 
 
-fun main11() {
+fun main1() {
 //    val buff = BufferedInputStream(FileInputStream(""))
 //    DataStreamTest.testDataOutPutStream()
 //    DataStreamTest.testDataInputStreamI()
@@ -66,7 +68,52 @@ fun main2() {
 
 fun main() {
 
-    println(3 / 2)
-    println(3f / 2)
-    println(3 / 2f)
+//    val map = HashMap<String, String>()
+//    map.put("a", "b")
+//    val set = HashSet<String>()
+//    set.add("a")
+//    set.contains()
+
+//     ThreadPoolExecutor()
+//    val futureTask = FutureTask<String>(object : Callable<String> {
+//        override fun call(): String {
+//            LockSupport.park()
+//            return "aaa"
+//        }
+//
+//    })
+//    val thread = Thread(futureTask)
+//    thread.start()
+////    thread.join()
+////    val lock = ReentrantLock()
+////    lock.lock()
+////    val condition =lock.newCondition();
+////    condition.await()
+////    println(futureTask.get())
+////    println(futureTask.get(100L,TimeUnit.MILLISECONDS))
+//    Thread.sleep(1000)
+////    thread.interrupt()
+//    LockSupport.unpark(thread)
+//    println(thread.isInterrupted)
+//    println(thread.isInterrupted)
+//
+//    val map =
+//        ConcurrentHashMap<String, String>()
+//    map["a"] = "a"
+
+
+    println(Text.tsestTry())
+}
+
+fun main4() {
+    val key = "4OYy/Obh0V6/dpXa"
+
+    val jiami = AESCryptoSecurity.encrypt(
+        "{\"msgContent\":{\"giftIcon\":\"https://meiban-1255871614.cos.ap-guangzhou.myqcloud.com/gift/webp/%E6%91%A9%E6%89%98%E8%BD%A6.webp\",\"giftId\":11,\"giftJsonUrl\":\"https://meiban-1255871614.cos.ap-guangzhou.myqcloud.com/gift/json/%E6%91%A9%E6%89%98%E8%BD%A6.json\",\"giftName\":\"摩托车\",\"giftPrice\":36888,\"giftSort\":11,\"giftSvgaUrl\":\"https://meiban-1255871614.cos.ap-guangzhou.myqcloud.com/gift/svga/%E6%91%A9%E6%89%98%E8%BD%A6.svga\",\"giftType\":0},\"msgType\":101,\"receiveUserId\":\"10111134\",\"sendUserId\":\"10111132\"}",
+        key
+    )
+    println(jiami)
+    println(AESCryptoSecurity.decrypt(jiami, key))
+
+
 }

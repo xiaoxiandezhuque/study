@@ -195,6 +195,7 @@ public class FhrView extends View {
             for (int i = 0; i < fhrList.size(); i++) {
                 mFhrPath.lineTo(maginX + spacingX * fhrLength / 120, 15 * spacingY1 * (200 - fhrList.get(i)) / 150 + maginY);
                 fhrLength++;
+
             }
         }
 
@@ -226,6 +227,8 @@ public class FhrView extends View {
 //    @Override
 //    public boolean onTouchEvent(MotionEvent event) {
 //        isScroll = true;
+//        event.getAction();
+//        event.getActionMasked()
 //        int down = (int) event.getX();
 //        switch (event.getAction()) {
 //            case MotionEvent.ACTION_DOWN:
