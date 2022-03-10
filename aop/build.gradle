@@ -45,6 +45,12 @@ android {
             signingConfig signingConfigs.release
         }
     }
+    //设置输出目录
+    applicationVariants.all { variant ->
+        variant.outputs.all  { output ->
+            output.getPackageApplication().outputDirectory = new File("./rele")
+        }
+    }
 }
 
 dependencies {
