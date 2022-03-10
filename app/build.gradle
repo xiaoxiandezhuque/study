@@ -23,10 +23,33 @@ android {
         }
     }
 
-    buildTypes {
+    signingConfigs {
+        debug {
+            storeFile file('../app.jks')
+            storePassword '123456'
+            keyAlias = 'key0'
+            keyPassword '123456'
+        }
         release {
+            storeFile file('../app.jks')
+            storePassword '123456'
+            keyAlias = 'key0'
+            keyPassword '123456'
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), project.file('proguard-rules.pro')
+            signingConfig signingConfigs.debug
+        }
+        release {
+            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     externalNativeBuild {
@@ -64,8 +87,8 @@ dependencies {
 //    implementation project(':butterknife-annotation')
 //    annotationProcessor project(':butterknife-cmplier')
 
-    api  'com.scwang.smart:refresh-layout-kernel:2.0.1'      //核心必须依赖
-    api  'com.scwang.smart:refresh-header-classics:2.0.1'    //经典刷新头
+    api 'com.scwang.smart:refresh-layout-kernel:2.0.1'      //核心必须依赖
+    api 'com.scwang.smart:refresh-header-classics:2.0.1'    //经典刷新头
 
 
     implementation 'com.google.auto.service:auto-service:1.0-rc7'
