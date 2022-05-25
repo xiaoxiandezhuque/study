@@ -1,7 +1,12 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+//apply plugin :"com.xh.my"
+apply plugin: 'flutter.multichannel'
 
+flutterMultiChannel {
+    flutterPath = ""
+}
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -45,12 +50,32 @@ android {
             signingConfig signingConfigs.release
         }
     }
-    //设置输出目录
-    applicationVariants.all { variant ->
-        variant.outputs.all  { output ->
-            output.getPackageApplication().outputDirectory = new File("./rele")
+
+    flavorDimensions 'fastName', 'lastName'
+    productFlavors {
+        module1 {
+            dimension = 'fastName'
+            applicationId "com.xh.module111"
         }
+        module2 {
+            dimension = 'fastName'
+            applicationId "com.xh.module222"
+
+        }
+        app1 {
+            dimension = 'lastName'
+            signingConfig signingConfigs.release
+        }
+
     }
+
+
+//    //设置输出目录
+//    applicationVariants.all { variant ->
+//        variant.outputs.all  { output ->
+//            output.getPackageApplication().outputDirectory = new File("./rele")
+//        }
+//    }
 }
 
 dependencies {
@@ -64,5 +89,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     api 'com.blankj:utilcodex:1.28.3'
 
-
+//    implementation "com.android.tools.build:gradle:4.0.1"
 }
+

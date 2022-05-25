@@ -1,6 +1,7 @@
 package com.xh.study
 
 import com.blankj.utilcode.util.EncryptUtils
+import com.meituan.android.walle.WalleChannelReader
 import java.nio.ByteBuffer
 import java.util.concurrent.Callable
 import java.util.concurrent.ConcurrentHashMap
@@ -68,7 +69,7 @@ fun main2() {
 }
 
 
-fun main() {
+fun main3() {
     val a = "aaa"
     val test = Text()
 
@@ -121,3 +122,4 @@ fun main4() {
     println(AESCryptoSecurity.decrypt(jiami, key))
 
 }
+

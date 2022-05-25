@@ -3,7 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-
+def isModuleArgs = System.getProperty("exec.args")
+println(isModuleArgs)
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -96,6 +97,9 @@ dependencies {
 
     //换肤框架
     implementation 'com.zhy:changeskin:4.0.3'
+
+    implementation 'com.meituan.android.walle:library:1.1.7'
+
 }
 
 
@@ -109,3 +113,11 @@ dependencies {
 //}
 //makeJar.dependsOn(build)
 //之后命令行运行    gradlew makeJar
+abstract class GreetingTask extends DefaultTask {
+    @TaskAction
+    def greet() {
+        println 'hello from GreetingTask'
+
+    }
+}
+

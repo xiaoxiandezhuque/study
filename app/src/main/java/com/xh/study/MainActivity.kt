@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.Utils
 import com.xh.study.activity.*
 import com.xh.study.aidl.AidlService
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 
@@ -73,7 +74,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
 //        val iterator = ServiceLoader.load(IAuto::class.java).iterator()
 //        while (iterator.hasNext()) {
 //            LogUtils.e(iterator.next().getName())
@@ -102,4 +102,5 @@ class MainActivity : AppCompatActivity() {
             System.loadLibrary("native-lib")
         }
     }
+
 }

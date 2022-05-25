@@ -1,0 +1,16 @@
+name: ceshi
+description: A new Flutter module.
+dev_dependencies:
+  build_runner: ^1.10.2
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - res/img/cash_left.png
+    - res/img/module1/cash_left11.png
+    - res/img/cash_right.png
+    - res/img/module2/cash_right11.png
+    - res/img/charge.png
+

@@ -13,4 +13,5 @@ include ':app'
 include ':chajian'
 include ':materialdesign'
 include ':superplayerkit'
+include ':flutterMultichannel'
 rootProject.name = "study"
