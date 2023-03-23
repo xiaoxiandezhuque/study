@@ -3,6 +3,8 @@
     package="com.xh.study">
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -11,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.CoordinatorActivity"></activity>
+        <activity android:name=".activity.SignActivity"></activity>
+        <activity android:name=".activity.ViewGroupActivity" />
+        <activity android:name=".activity.CoordinatorActivity" />
         <activity android:name=".activity.FishActivity" />
         <activity android:name=".activity.TextActivity" />
         <activity android:name=".MainActivity">

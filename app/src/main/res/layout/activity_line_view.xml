@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:fillViewport="true">
 
-        <com.xh.study.view.line.LineView
+        <com.xh.study.view.line.PartView
             android:id="@+id/line_view"
             android:layout_width="match_parent"
             android:layout_height="100dp" />
@@ -23,7 +23,18 @@
         android:id="@+id/btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="换数据" />
+        android:text="播放/暂停" />
+
+    <Button
+        android:id="@+id/btn1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开启点击" />
 
 
+    <Button
+        android:id="@+id/btn2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="下一段" />
 </LinearLayout>

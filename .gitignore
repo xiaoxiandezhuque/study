@@ -7,3 +7,5 @@
 .externalNativeBuild
 .cxx
 .idea
+multichannelpackaging/release/
+superplayerkit/build/

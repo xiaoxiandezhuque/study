@@ -1,65 +1,130 @@
-apply plugin: 'com.android.application'
+ext {
+    isModule = true
+}
+
+//执行命令行  加入  -Dexec.args="false"  标识
+if (System.getProperty("exec.args") != null) {
+    println(System.getProperty("exec.args"))
+    isModule = System.getProperty("exec.args")
+}
+
+if (isModule.toBoolean()) {
+    apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'
+}
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+
 android {
+    //去掉lint 检查
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
-    defaultConfig {
-        applicationId "com.xh.multichannelpackaging"
-        minSdkVersion 16
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    signingConfigs {
-        release {
-            storeFile file('../my.jks')
-            storePassword '123456'
-            keyAlias = 'key0'
-            keyPassword '123456'
+    if (isModule.toBoolean()) {
+        defaultConfig {
+            minSdkVersion 16
+            targetSdkVersion 30
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         }
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        buildTypes {
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            }
         }
-    }
+        sourceSets {
+            main {
+                manifest.srcFile 'src/main/ModelAndroidManifest.xml'
+            }
+        }
+    } else {
+        defaultConfig {
+            applicationId "com.xh.multichannelpackaging"
+            minSdkVersion 16
+            targetSdkVersion 30
+            versionCode 1
+            versionName "1.0"
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        }
+
+        signingConfigs {
+            release {
+                storeFile file('../my.jks')
+                storePassword '123456'
+                keyAlias = 'key0'
+                keyPassword '123456'
+            }
+        }
+        sourceSets {
+            main {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+        }
+
+        buildTypes {
+            release {
+                minifyEnabled false
+                zipAlignEnabled true
+//                shrinkResources true
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.release
+            }
+        }
 //    由两个名字组成， 这里还可以定义很多个，一个也可以
-    flavorDimensions 'fastName', 'lastName'
-    productFlavors {
-        module1 {
-            dimension = 'fastName'
-            applicationId "com.xh.module111"
-            ndk {
-                abiFilters 'armeabi-v7a', 'arm64-v8a'//, 'x86_64', 'x86'
-            }
-            buildConfigField 'String', 'URL', '"release".equals(BUILD_TYPE) ? "1" : "2"'
+        flavorDimensions 'fastName', 'lastName'
+        productFlavors {
+            module1 {
+                dimension = 'fastName'
+                applicationId "com.xh.module111"
+                ndk {
+                    abiFilters 'armeabi-v7a', 'arm64-v8a'//, 'x86_64', 'x86'
+                }
+                buildConfigField 'String', 'URL', '"release".equals(BUILD_TYPE) ? "1" : "2"'
 
-        }
-        module2 {
-            dimension = 'fastName'
-            applicationId "com.xh.module222"
-            ndk {
-                abiFilters 'armeabi-v7a', 'arm64-v8a'//, 'x86_64', 'x86'
             }
-            buildConfigField 'String', 'URL', '"release".equals(BUILD_TYPE) ? "1" : "2"'
-        }
-        app1 {
-            dimension = 'lastName'
-            signingConfig signingConfigs.release
+            module2 {
+                dimension = 'fastName'
+                applicationId "com.xh.module222"
+                ndk {
+                    abiFilters 'armeabi-v7a', 'arm64-v8a'//, 'x86_64', 'x86'
+                }
+                buildConfigField 'String', 'URL', '"release".equals(BUILD_TYPE) ? "1" : "2"'
+            }
+            app1 {
+                dimension = 'lastName'
+                signingConfig signingConfigs.release
 //            定义manifest里面的一个属性,没试出作用来
 //            manifestPlaceholders = [CHANNEL: 'CHANNEL22222']
 //            manifestPlaceholders = [SHARED_USER_ID: 'android.uid.system']
+            }
+
         }
 
+        //设置输出目录
+//        applicationVariants.all { variant ->
+//            variant.outputs.eachWithIndex { Object output, int i ->
+//
+//                def packName1 = output.outputFile.parentFile.parentFile.name
+//                def packName2 = output.outputFile.parentFile.name
+//                //修改目录
+//                //为了生成不同的json文件日志，必须设置不同的apk生成目录
+//                output.getPackageApplication().outputDirectory = new File("./${packName2}/${packName1}")
+//                def outputFile = output.outputFile
+//                if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                    // 这里修改apk名称
+//                    output.outputFileName = "ceshi_${packName1}_${defaultConfig.versionCode}.apk"
+//                }
+//            }
+//        }
     }
-
 }
 
 dependencies {
