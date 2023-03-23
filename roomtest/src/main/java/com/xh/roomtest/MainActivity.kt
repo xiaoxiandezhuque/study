@@ -16,8 +16,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val userDao = AppDatabase.getInstance(this).userDao()
-        val bookDao = AppDatabase.getInstance(this).bookDao()
+        val userDao = AppDatabase.getInstance().userDao()
+        val bookDao = AppDatabase.getInstance().bookDao()
 
         userDao.getAllUser().observe(this, Observer {
             it.forEach {

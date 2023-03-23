@@ -9,6 +9,11 @@ class App : Application() {
         super.onCreate()
         Utils.init(this)
         initLookDB()
+        app = this
+    }
+
+    companion object{
+        lateinit var app:App
     }
 
     //初始化看数据库的框架

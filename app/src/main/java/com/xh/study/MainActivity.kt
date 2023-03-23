@@ -5,8 +5,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.blankj.utilcode.util.FileIOUtils
 import com.xh.study.activity.*
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,6 +54,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
         startActivity(Intent(this, CoordinatorActivity::class.java))
+
+
     }
 
 

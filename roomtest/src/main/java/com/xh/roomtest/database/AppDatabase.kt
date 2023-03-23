@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.xh.roomtest.App
 import com.xh.roomtest.bean.Book
 import com.xh.roomtest.bean.User
 import com.xh.roomtest.dao.BookDao
@@ -17,10 +18,10 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         private var instance: AppDatabase? = null
-        fun getInstance(context: Context): AppDatabase {
+        fun getInstance(): AppDatabase {
             if (instance == null) {
                 instance = Room.databaseBuilder(
-                    context.applicationContext,
+                    App.app,
                     AppDatabase::class.java,
                     "user.db" //数据库名称
                 ).allowMainThreadQueries().build()

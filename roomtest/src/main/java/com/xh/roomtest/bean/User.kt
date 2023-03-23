@@ -8,7 +8,7 @@ import androidx.room.*
 )
 data class User(
     @ColumnInfo(name = "user_name") var userName: String,
-    @ColumnInfo(defaultValue = "") var userPhone: String,
+    @ColumnInfo(defaultValue = "") var userPhone: String
 ) {
     @PrimaryKey(autoGenerate = true)
     var userId: Long? = null
